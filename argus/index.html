@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ARGUS Intelligence — Prototype UI</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">ARGUS</div>
+      <div class="org">Cabinet : Veritas Investigations</div>
+    </div>
+    <div class="top-actions">
+      <div class="role-badge">Rôle: Enquêteur</div>
+      <div class="avatar">FI</div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="case-card">
+        <div class="case-number">Dossier #2026‑A-001</div>
+        <h3 class="case-title">Due diligence — Acquisition cible</h3>
+        <div class="meta">
+          <div>Statut : <span class="badge status active">Active</span></div>
+          <div>Risque : <span class="badge risk high">Élevé</span></div>
+          <div>Juridiction : France</div>
+          <div>Assigné à : Julie Martin</div>
+        </div>
+        <div class="audit-indicator">🔒 Audit disponible</div>
+      </div>
+
+      <nav class="side-nav">
+        <button class="nav-btn active" data-view="timeline">Chronologie</button>
+        <button class="nav-btn" data-view="evidence">Preuves</button>
+        <button class="nav-btn" data-view="graph">Hypothèses</button>
+        <button class="nav-btn" data-view="analysis">Analyses</button>
+        <button class="nav-btn" id="open-report">Générer rapport</button>
+      </nav>
+    </aside>
+
+    <section class="content">
+      <div id="view-timeline" class="view active">
+        <h2>Chronologie de l'enquête</h2>
+        <ul class="timeline">
+          <li>
+            <div class="time">2026‑01‑04 09:12</div>
+            <div class="event">
+              <div class="title">Dépôt initial</div>
+              <div class="actor">Client: Groupe A</div>
+              <div class="summary">Mission d'examen financier et structuration.</div>
+            </div>
+          </li>
+          <li>
+            <div class="time">2026‑01‑05 11:40</div>
+            <div class="event">
+              <div class="title">Upload preuve #E-17</div>
+              <div class="actor">Enquêteur: J. Martin</div>
+              <div class="summary">Relevés bancaires partiels.</div>
+            </div>
+          </li>
+          <li>
+            <div class="time">2026‑01‑05 13:03</div>
+            <div class="event">
+              <div class="title">Analyse assistée par IA</div>
+              <div class="actor">Module ARGUS‑LM v1.3</div>
+              <div class="flags ia">Analyses assistées par IA — confiance 0.68</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div id="view-evidence" class="view">
+        <h2>Galerie de preuves</h2>
+        <div class="evidence-grid">
+          <div class="e-card">
+            <div class="thumb">PDF</div>
+            <div class="e-meta">
+              <div class="e-title">Relevés bancaires Q4</div>
+              <div class="e-sub">Collector: J. Martin · 2026‑01‑05</div>
+            </div>
+            <div class="e-actions">
+              <button class="btn small" data-action="view">Voir</button>
+              <button class="btn small" data-action="analyze">Analyser (IA)</button>
+            </div>
+          </div>
+
+          <div class="e-card">
+            <div class="thumb">IMG</div>
+            <div class="e-meta">
+              <div class="e-title">Capture écran — site X</div>
+              <div class="e-sub">Source publique · confiance 0.55</div>
+            </div>
+            <div class="e-actions">
+              <button class="btn small" data-action="view">Voir</button>
+              <button class="btn small" data-action="analyze">Analyser (IA)</button>
+            </div>
+          </div>
+
+          <div class="e-card sealed">
+            <div class="thumb">FILE</div>
+            <div class="e-meta">
+              <div class="e-title">Contrat signé (scellé)</div>
+              <div class="e-sub">Collector: Client · 2025‑12‑20</div>
+            </div>
+            <div class="e-actions">
+              <button class="btn small" data-action="view">Voir (redacted)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="view-graph" class="view">
+        <h2>Cartographie des hypothèses</h2>
+        <div class="graph-placeholder">[Graph canvas — nœuds : Entités, Relations, Preuves]</div>
+      </div>
+
+      <div id="view-analysis" class="view">
+        <h2>Panel d'analyse</h2>
+        <div class="analysis-panel">
+          <div class="prompt-box">
+            <label>Template prompt</label>
+            <select id="prompt-template">
+              <option value="correlation">Corrélation transactions → entités</option>
+              <option value="chronology">Reconstruction chronologique</option>
+              <option value="anomaly">Détection d'anomalies</option>
+            </select>
+            <label>Contexte sélectionné</label>
+            <div class="context-list">E-17, E-23</div>
+            <button class="btn primary" id="run-analysis">Lancer l'analyse</button>
+          </div>
+
+          <div class="results">
+            <div class="result-item ia">
+              <div class="r-header">
+                <div class="r-title">Analyse IA — Corrélation possible</div>
+                <div class="r-meta">ARGUS‑LM v1.3 · confiance 0.68</div>
+              </div>
+              <div class="r-body">
+                Suggestion : correspondance entre le mouvement bancaire et la société Z. Sources : E‑17, E‑12.
+              </div>
+              <div class="r-actions">
+                <button class="btn ghost" data-action="annotate">Annoter</button>
+                <button class="btn" data-action="accept">Accepter (intégrer)</button>
+                <button class="btn danger" data-action="reject">Rejeter</button>
+              </div>
+            </div>
+
+            <div class="result-item human">
+              <div class="r-header">
+                <div class="r-title">CONCLUSION HUMAINE — Vérification</div>
+                <div class="r-meta">Signé : J. Martin · 2026‑01‑05 14:00</div>
+              </div>
+              <div class="r-body">
+                Après vérification documentaire, la correspondance bancaire nécessite demande d'information complémentaire auprès de la banque.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="right-panel">
+      <div class="panel-card">
+        <h4>Contexte rapide</h4>
+        <div class="kpi">
+          <div class="k">Alertes Haut Risque</div>
+          <div class="v">2</div>
+        </div>
+        <div class="kpi">
+          <div class="k">Analyses en attente</div>
+          <div class="v">1</div>
+        </div>
+        <hr/>
+        <div class="prompt-library">
+          <h5>Prompt Library</h5>
+          <ul>
+            <li>Corrélation transactions (approved)</li>
+            <li>Chronologie (approved)</li>
+            <li>Recherche OSINT (require legal)</li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Report Modal -->
+  <div id="report-modal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <h3>Générateur de rapport</h3>
+      <div class="report-builder">
+        <label>Titre du rapport</label>
+        <input id="report-title" value="Due Diligence — Résumé exécutif" />
+        <label>Sections</label>
+        <div class="sections">
+          <div class="section">Executive summary</div>
+          <div class="section">Chronologie</div>
+          <div class="section ia-block">Analyses assistées par IA (4 éléments)</div>
+          <div class="section human-block">Conclusions humaines (signature requise)</div>
+        </div>
+        <div class="report-opts">
+          <label><input type="checkbox" checked/> Inclure annexe chaîne de conservation</label>
+          <label><input type="checkbox" checked/> Signer numériquement (Super Admin requis)</label>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn ghost" id="close-report">Annuler</button>
+        <button class="btn primary" id="preview-report">Prévisualiser</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div>ARGUS Intelligence — Analyses assistées par IA (toujours soumises à validation humaine)</div>
+    <div class="footer-meta">Model: ARGUS‑LM v1.3 · Prompt ID: PR‑2026‑0001</div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
